@@ -1,11 +1,11 @@
 Summary:	Compact general purpose allocator with excellent performance
 Name:		mimalloc
-Version:	1.7.3
+Version:	2.0.5
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://github.com/microsoft/mimalloc/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	2f1719aab9912c597c05ac04f02945e0
+# Source0-md5:	23b99631a17a6aeda6770aec89f78a43
 Patch0:		%{name}-build_type.patch
 URL:		https://github.com/microsoft/mimalloc
 BuildRequires:	cmake >= 3.0
@@ -82,6 +82,7 @@ Static mimalloc library.
 
 %build
 %cmake -B build \
+	-DMI_BUILD_OBJECT:BOOL=OFF \
 	-DMI_INSTALL_TOPLEVEL:BOOL=ON
 
 %{__make} -C build
@@ -100,7 +101,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libmimalloc.so.1.7
+%attr(755,root,root) %{_libdir}/libmimalloc.so.*.*
+%attr(755,root,root) %ghost %{_libdir}/libmimalloc.so.2
 
 %files devel
 %defattr(644,root,root,755)
