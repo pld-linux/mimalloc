@@ -1,11 +1,11 @@
 Summary:	Compact general purpose allocator with excellent performance
 Name:		mimalloc
-Version:	2.0.5
+Version:	2.0.6
 Release:	1
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://github.com/microsoft/mimalloc/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	23b99631a17a6aeda6770aec89f78a43
+# Source0-md5:	064c69f146ba05d1e593dc8c5c0944a6
 Patch0:		%{name}-build_type.patch
 URL:		https://github.com/microsoft/mimalloc
 BuildRequires:	cmake >= 3.0
