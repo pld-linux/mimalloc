@@ -9,7 +9,10 @@ Source0:	https://github.com/microsoft/mimalloc/archive/v%{version}/%{name}-%{ver
 Patch0:		%{name}-build_type.patch
 URL:		https://github.com/microsoft/mimalloc
 BuildRequires:	cmake >= 3.0
-BuildRequires:	rpmbuild(macros) >= 1.605
+%ifarch %{armv6}
+BuildRequires:	libatomic-devel
+%endif
+BuildRequires:	rpmbuild(macros) >= 2.007
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
