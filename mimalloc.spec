@@ -1,7 +1,7 @@
 Summary:	Compact general purpose allocator with excellent performance
 Name:		mimalloc
 Version:	2.0.6
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://github.com/microsoft/mimalloc/archive/v%{version}/%{name}-%{version}.tar.gz
