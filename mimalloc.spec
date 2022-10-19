@@ -1,7 +1,11 @@
+# TODO
+# - drop dependency on libatomic from archs that don't require it
+#   https://github.com/microsoft/mimalloc/issues/634
+
 Summary:	Compact general purpose allocator with excellent performance
 Name:		mimalloc
 Version:	2.0.6
-Release:	2
+Release:	3
 License:	MIT
 Group:		Development/Libraries
 Source0:	https://github.com/microsoft/mimalloc/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -9,9 +13,7 @@ Source0:	https://github.com/microsoft/mimalloc/archive/v%{version}/%{name}-%{ver
 Patch0:		%{name}-build_type.patch
 URL:		https://github.com/microsoft/mimalloc
 BuildRequires:	cmake >= 3.0
-%ifarch %{armv6}
 BuildRequires:	libatomic-devel
-%endif
 BuildRequires:	rpmbuild(macros) >= 2.007
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -67,6 +69,7 @@ Notable aspects of the design include:
 Summary:	Header files for the mimalloc library
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libatomic-devel
 
 %description devel
 Header files for mimalloc library.
