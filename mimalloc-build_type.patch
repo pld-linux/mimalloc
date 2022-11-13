@@ -1,12 +1,12 @@
 --- mimalloc-1.7.3/CMakeLists.txt.orig	2021-11-15 01:47:50.000000000 +0100
 +++ mimalloc-1.7.3/CMakeLists.txt	2021-12-15 20:11:18.521257503 +0100
 @@ -247,9 +247,6 @@
+   set(mi_basename "${mi_basename}-valgrind")
  endif()
- 
  string(TOLOWER "${CMAKE_BUILD_TYPE}" CMAKE_BUILD_TYPE_LC)
 -if(NOT(CMAKE_BUILD_TYPE_LC MATCHES "^(release|relwithdebinfo|minsizerel|none)$"))
 -  set(mi_basename "${mi_basename}-${CMAKE_BUILD_TYPE_LC}") #append build type (e.g. -debug) if not a release version
 -endif()
+ 
  if(MI_BUILD_SHARED)
    list(APPEND mi_build_targets "shared")
- endif()
