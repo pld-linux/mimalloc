@@ -14,6 +14,7 @@ Patch0:		%{name}-build_type.patch
 URL:		https://github.com/microsoft/mimalloc
 BuildRequires:	cmake >= 3.13
 BuildRequires:	libatomic-devel
+BuildRequires:	libstdc++-devel >= 6:5
 BuildRequires:	rpmbuild(macros) >= 2.007
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
