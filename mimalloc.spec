@@ -1,6 +1,9 @@
 # TODO
 # - drop dependency on libatomic from archs that don't require it
 #   https://github.com/microsoft/mimalloc/issues/634
+#
+# Conditional build:
+%bcond_without	static_libs	# static library
 
 Summary:	Compact general purpose allocator with excellent performance
 Name:		mimalloc
@@ -90,6 +93,7 @@ Static mimalloc library.
 %build
 %cmake -B build \
 	-DMI_BUILD_OBJECT:BOOL=OFF \
+	%{cmake_on_off static_libs MI_BUILD_STATIC} \
 	-DMI_INSTALL_TOPLEVEL:BOOL=ON
 
 %{__make} -C build
@@ -120,6 +124,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/cmake/mimalloc
 %{_pkgconfigdir}/mimalloc.pc
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libmimalloc.a
+%endif
