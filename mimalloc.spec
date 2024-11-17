@@ -6,11 +6,12 @@
 %bcond_without	static_libs	# static library
 
 Summary:	Compact general purpose allocator with excellent performance
+Summary(pl.UTF-8):	Mały alokator pamięci ogólnego przeznaczenia, o dobrej wydajności
 Name:		mimalloc
 Version:	2.1.7
 Release:	1
 License:	MIT
-Group:		Development/Libraries
+Group:		Libraries
 Source0:	https://github.com/microsoft/mimalloc/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	8f33b9972e9ac65c22c846c867583357
 Patch0:		%{name}-build_type.patch
@@ -26,51 +27,36 @@ mimalloc (pronounced "me-malloc") is a general purpose allocator with
 excellent performance characteristics. Initially developed by Daan
 Leijen for the run-time systems of the Koka and Lean languages.
 Notable aspects of the design include:
-
-- small and consistent: the library is about 8k LOC using simple and
-  consistent data structures. This makes it very suitable to integrate
-  and adapt in other projects. For runtime systems it provides hooks for
-  a monotonic heartbeat and deferred freeing (for bounded worst-case
-  times with reference counting).
-- free list sharding: instead of one big free list (per size class) we
-  have many smaller lists per "mimalloc page" which reduces
-  fragmentation and increases locality -- things that are allocated
-  close in time get allocated close in memory. (A mimalloc page contains
-  blocks of one size class and is usually 64KiB on a 64-bit system).
-- free list multi-sharding: the big idea! Not only do we shard the
-  free list per mimalloc page, but for each page we have multiple free
-  lists. In particular, there is one list for thread-local free
-  operations, and another one for concurrent free operations. Free-ing
-  from another thread can now be a single CAS without needing
-  sophisticated coordination between threads. Since there will be
-  thousands of separate free lists, contention is naturally distributed
-  over the heap, and the chance of contending on a single location will
-  be low -- this is quite similar to randomized algorithms like skip
-  lists where adding a random oracle removes the need for a more complex
-  algorithm.
+- small and consistent
+- free list sharding
+- free list multi-sharding
 - eager page reset: when a "page" becomes empty (with increased chance
   due to free list sharding) the memory is marked to the OS as unused
   ("reset" or "purged") reducing (real) memory pressure and
   fragmentation, especially in long running programs.
-- secure: mimalloc can be built in secure mode, adding guard pages,
-  randomized allocation, encrypted free lists, etc. to protect against
-  various heap vulnerabilities. The performance penalty is usually
-  around 10% on average over our benchmarks.
-- first-class heaps: efficiently create and use multiple heaps to
-  allocate across different regions. A heap can be destroyed at once
-  instead of deallocating each object separately.
-- bounded: it does not suffer from blowup, has bounded worst-case
-  allocation times (wcat), bounded space overhead (~0.2% meta-data, with
-  at most 12.5% waste in allocation sizes), and has no internal points
-  of contention using only atomic operations.
-- fast: In our benchmarks, mimalloc outperforms other leading
-  allocators (jemalloc, tcmalloc, Hoard, etc), and often uses less
-  memory. A nice property is that it does consistently well over a wide
-  range of benchmarks. There is also good huge OS page support for
-  larger server programs.
+- secure: mimalloc can be built in secure mode
+- first-class heaps
+- bounded
+- fast
+
+%description
+mimalloc (wymawiane jak "me-malloc") to alokator pamięci ogólnego
+przeznaczenia, o dobrej charakterystyce wydajności. Pierwotnie został
+napisany przez Daana Leijena dla systemów uruchomieniowych języków
+Koka i Lean. Główne aspekty projektu to:
+- mały rozmiar i spójność
+- rozdrobnienie list wolnego miejsca
+- wielokrotne rozdrobnienie list wolnego miejsca
+- oznaczanie wolnych stron jako nie używanych
+- bezpieczeństwo (można zbudować w trybie zorientowanym na
+  bezpieczeństwo)
+- sterty pierwszego poziomu
+- ograniczenie najgorszych przypadków
+- szybkość
 
 %package devel
 Summary:	Header files for the mimalloc library
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki mimalloc
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libatomic-devel
@@ -78,13 +64,20 @@ Requires:	libatomic-devel
 %description devel
 Header files for mimalloc library.
 
+%description devel -l pl.UTF-8
+Pliki nagłówkowe biblioteki mimalloc.
+
 %package static
 Summary:	Static mimalloc library
+Summary(pl.UTF-8):	Statyczna biblioteka mimalloc
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static mimalloc library.
+
+%description static -l pl.UTF-8
+Statyczna biblioteka mimalloc.
 
 %prep
 %setup -q
