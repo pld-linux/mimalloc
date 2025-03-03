@@ -8,12 +8,12 @@
 Summary:	Compact general purpose allocator with excellent performance
 Summary(pl.UTF-8):	Mały alokator pamięci ogólnego przeznaczenia, o dobrej wydajności
 Name:		mimalloc
-Version:	2.1.7
+Version:	2.1.9
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	https://github.com/microsoft/mimalloc/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	8f33b9972e9ac65c22c846c867583357
+# Source0-md5:	1b33c11a8f9ea4b7ae0862070892206e
 Patch0:		%{name}-build_type.patch
 URL:		https://github.com/microsoft/mimalloc
 BuildRequires:	cmake >= 3.18
@@ -87,7 +87,8 @@ Statyczna biblioteka mimalloc.
 %cmake -B build \
 	-DMI_BUILD_OBJECT:BOOL=OFF \
 	%{cmake_on_off static_libs MI_BUILD_STATIC} \
-	-DMI_INSTALL_TOPLEVEL:BOOL=ON
+	-DMI_INSTALL_TOPLEVEL:BOOL=ON \
+	-DMI_OPT_ARCH:BOOL=OFF
 
 %{__make} -C build
 
