@@ -39,7 +39,7 @@ Notable aspects of the design include:
 - bounded
 - fast
 
-%description
+%description -l pl.UTF-8
 mimalloc (wymawiane jak "me-malloc") to alokator pamięci ogólnego
 przeznaczenia, o dobrej charakterystyce wydajności. Pierwotnie został
 napisany przez Daana Leijena dla systemów uruchomieniowych języków
