@@ -88,7 +88,8 @@ Statyczna biblioteka mimalloc.
 	-DMI_BUILD_OBJECT:BOOL=OFF \
 	-DMI_BUILD_STATIC:BOOL=%{__ON_OFF static_libs} \
 	-DMI_INSTALL_TOPLEVEL:BOOL=ON \
-	-DMI_OPT_ARCH:BOOL=OFF
+	-DMI_OPT_ARCH:BOOL=OFF \
+	-DMI_BUILD_TESTS:BOOL=OFF
 
 %{__make} -C build
 
