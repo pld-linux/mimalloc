@@ -15,6 +15,7 @@ Group:		Libraries
 Source0:	https://github.com/microsoft/mimalloc/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	63ea5d19341717593a45e7a01138b82e
 Patch0:		%{name}-build_type.patch
+Patch1:		arm-arch-pattern.patch
 URL:		https://github.com/microsoft/mimalloc
 BuildRequires:	cmake >= 3.18
 BuildRequires:	libatomic-devel
@@ -82,6 +83,7 @@ Statyczna biblioteka mimalloc.
 %prep
 %setup -q
 %patch -P0 -p1
+%patch -P1 -p1
 
 %build
 %cmake -B build \
