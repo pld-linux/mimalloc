@@ -8,18 +8,18 @@
 Summary:	Compact general purpose allocator with excellent performance
 Summary(pl.UTF-8):	Mały alokator pamięci ogólnego przeznaczenia, o dobrej wydajności
 Name:		mimalloc
-Version:	2.1.9
+Version:	2.2.3
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	https://github.com/microsoft/mimalloc/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	1b33c11a8f9ea4b7ae0862070892206e
+# Source0-md5:	63ea5d19341717593a45e7a01138b82e
 Patch0:		%{name}-build_type.patch
 URL:		https://github.com/microsoft/mimalloc
 BuildRequires:	cmake >= 3.18
 BuildRequires:	libatomic-devel
-BuildRequires:	libstdc++-devel >= 6:5
-BuildRequires:	rpmbuild(macros) >= 2.007
+BuildRequires:	libstdc++-devel >= 6:7
+BuildRequires:	rpmbuild(macros) >= 2.047
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -86,7 +86,7 @@ Statyczna biblioteka mimalloc.
 %build
 %cmake -B build \
 	-DMI_BUILD_OBJECT:BOOL=OFF \
-	%{cmake_on_off static_libs MI_BUILD_STATIC} \
+	-DMI_BUILD_STATIC:BOOL=%{__ON_OFF static_libs} \
 	-DMI_INSTALL_TOPLEVEL:BOOL=ON \
 	-DMI_OPT_ARCH:BOOL=OFF
 
@@ -115,6 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/mimalloc.h
 %{_includedir}/mimalloc-new-delete.h
 %{_includedir}/mimalloc-override.h
+%{_includedir}/mimalloc-stats.h
 %{_libdir}/cmake/mimalloc
 %{_pkgconfigdir}/mimalloc.pc
 
